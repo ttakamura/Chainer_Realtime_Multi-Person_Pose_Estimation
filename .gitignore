@@ -11,3 +11,4 @@ result.png
 *.caffemodel
 *.chainermodel
 *.npz
+.python-version

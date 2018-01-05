@@ -4,6 +4,8 @@ import cv2
 import random
 import numpy as np
 from chainer.dataset import DatasetMixin
+import matplotlib
+matplotlib.use('Agg')
 from pycocotools.coco import COCO
 
 from entity import JointType, params
@@ -464,7 +466,9 @@ if __name__ == '__main__':
             img = data_loader.overlay_pafs(img, pafs)
             img = data_loader.overlay_ignore_mask(img, ignore_mask)
 
-            cv2.imshow('w', np.hstack((resized_img, img)))
+            # cv2.imshow('w', np.hstack((resized_img, img)))
+            cv2.imwrite('~/tmp/coco.jpg', np.hstack((resized_img, img)))
+
             k = cv2.waitKey(0)
             if k == ord('q'):
                 sys.exit()
