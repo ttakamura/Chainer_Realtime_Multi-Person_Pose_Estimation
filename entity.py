@@ -7,43 +7,29 @@ from models.HandNet import HandNet
 
 
 class JointType(IntEnum):
-    """関節の種類を表す """
     Nose = 0
-    """ 鼻 """
     Neck = 1
-    """ 首 """
     RightShoulder = 2
-    """ 右肩 """
     RightElbow = 3
-    """ 右肘 """
     RightHand = 4
-    """ 右手 """
     LeftShoulder = 5
-    """ 左肩 """
     LeftElbow = 6
-    """ 左肘 """
     LeftHand = 7
-    """ 左手 """
     RightWaist = 8
-    """ 右腰 """
     RightKnee = 9
-    """ 右膝 """
     RightFoot = 10
-    """ 右足 """
     LeftWaist = 11
-    """ 左腰 """
     LeftKnee = 12
-    """ 左膝 """
     LeftFoot = 13
-    """ 左足 """
     RightEye = 14
-    """ 右目 """
     LeftEye = 15
-    """ 左目 """
     RightEar = 16
-    """ 右耳 """
     LeftEar = 17
-    """ 左耳 """
+    RightToes = 18
+    LeftToes = 19
+    RightFist = 20
+    LeftFist = 21
+    Spine = 22
 
 params = {
     'coco_dir': 'coco',
@@ -122,6 +108,32 @@ params = {
         JointType.LeftFoot,
         JointType.RightFoot
     ],
+
+    'moecs_joint_indices': {
+        'nose': JointType.Nose,
+        'L_eye': JointType.LeftEye,
+        'R_eye': JointType.RightEye,
+        'L_ear': JointType.LeftEar,
+        'R_ear': JointType.RightEar,
+        'neck': JointType.Neck,
+        'L_shoulder': JointType.LeftShoulder,
+        'R_shoulder': JointType.RightShoulder,
+        'L_elbow': JointType.LeftElbow,
+        'R_elbow': JointType.RightElbow,
+        'L_hand': JointType.LeftHand,
+        'R_hand': JointType.RightHand,
+        'L_waist': JointType.LeftWaist,
+        'R_waist': JointType.RightWaist,
+        'L_knee': JointType.LeftKnee,
+        'R_knee': JointType.RightKnee,
+        'L_foot': JointType.LeftFoot,
+        'R_foot': JointType.RightFoot,
+        'L_toes': JointType.LeftToes,
+        'R_toes': JointType.RightToes,
+        'L_fist': JointType.LeftFist,
+        'R_fist': JointType.RightFist,
+        'spine': JointType.Spine
+    },
 
     # face params
     'face_inference_img_size': 368,
