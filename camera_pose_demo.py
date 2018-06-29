@@ -29,6 +29,14 @@ def convert_to_moepose(pose_array):
             bone[k] = {'x': x, 'y': y, 'v': v}
         else:
             bone[k] = {'x': 0, 'y': 0, 'v': 0}
+
+    bone['neck']['y'] -= 20
+
+    # Spine
+    spine_x = (bone['L_waist']['x'] + bone['R_waist']['x'])/2
+    spine_y = (bone['L_waist']['y'] + (bone['L_waist']['y'] + bone['neck']['y'])/2)/2
+    bone['spine'] = {'x': spine_x, 'y': spine_y, 'v': 2}
+
     return {'bone': bone}
 
 
@@ -99,12 +107,13 @@ if __name__ == '__main__':
 
         person_pose_array, _ = pose_detector(img)
 
-        puppet_id = "0a366b1d-a8a7-4194-b335-163e48fcc341"
-        res_img = fetch_transformed_img(puppet_id, person_pose_array[0])
-        res_img = cv2.addWeighted(res_img, 0.6, draw_person_pose(img, person_pose_array), 0.4, 0)
+        if len(person_pose_array) > 0:
+            puppet_id = "b2c08639-83f4-478a-9ad8-f240053cfae6"
+            res_img = fetch_transformed_img(puppet_id, person_pose_array[0])
+            res_img = cv2.addWeighted(res_img, 0.7, draw_person_pose(res_img, person_pose_array), 0.3, 0)
 
-        debug_img = cv2.addWeighted(img, 0.6, draw_person_pose(img, person_pose_array), 0.4, 0)
-        res_img = np.concatenate((debug_img, res_img), axis=1)
+            debug_img = cv2.addWeighted(img, 0.6, draw_person_pose(img, person_pose_array), 0.4, 0)
+            res_img = np.concatenate((debug_img, res_img), axis=1)
 
-        cv2.imshow("result", res_img)
-        cv2.waitKey(1)
+            cv2.imshow("result", res_img)
+            cv2.waitKey(1)
