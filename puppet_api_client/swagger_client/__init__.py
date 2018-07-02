@@ -23,7 +23,7 @@ from swagger_client.api_client import ApiClient
 from swagger_client.configuration import Configuration
 # import models into sdk package
 from swagger_client.models.bone import Bone
+from swagger_client.models.crowd import Crowd
 from swagger_client.models.joint import Joint
 from swagger_client.models.pose import Pose
-from swagger_client.models.poses import Poses
 from swagger_client.models.puppet import Puppet

@@ -106,7 +106,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **estimate_pose**
-> Poses estimate_pose(puppet_id, pose_image)
+> Crowd estimate_pose(puppet_id, pose_image)
 
 Estimate the pose from input image
 
@@ -140,7 +140,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Poses**](Poses.md)
+[**Crowd**](Crowd.md)
 
 ### Authorization
 

@@ -77,9 +77,9 @@ Class | Method | HTTP request | Description
 ## Documentation For Models
 
  - [Bone](docs/Bone.md)
+ - [Crowd](docs/Crowd.md)
  - [Joint](docs/Joint.md)
  - [Pose](docs/Pose.md)
- - [Poses](docs/Poses.md)
  - [Puppet](docs/Puppet.md)
 
 
