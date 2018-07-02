@@ -71,6 +71,7 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *PuppetApi* | [**create_puppet**](docs/PuppetApi.md#create_puppet) | **POST** /puppet | Create new Puppet model
 *PuppetApi* | [**draw**](docs/PuppetApi.md#draw) | **POST** /puppet/{puppetId}/draw | Draw new image based on the Puppet and input pose
+*PuppetApi* | [**draw_by_image**](docs/PuppetApi.md#draw_by_image) | **POST** /puppet/{puppetId}/draw_by_image | Draw new image based on the input image
 
 
 ## Documentation For Models

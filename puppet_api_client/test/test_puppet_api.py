@@ -43,6 +43,13 @@ class TestPuppetApi(unittest.TestCase):
         """
         pass
 
+    def test_draw_by_image(self):
+        """Test case for draw_by_image
+
+        Draw new image based on the input image  # noqa: E501
+        """
+        pass
+
 
 if __name__ == '__main__':
     unittest.main()

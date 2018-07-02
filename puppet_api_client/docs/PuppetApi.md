@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**create_puppet**](PuppetApi.md#create_puppet) | **POST** /puppet | Create new Puppet model
 [**draw**](PuppetApi.md#draw) | **POST** /puppet/{puppetId}/draw | Draw new image based on the Puppet and input pose
+[**draw_by_image**](PuppetApi.md#draw_by_image) | **POST** /puppet/{puppetId}/draw_by_image | Draw new image based on the input image
 
 
 # **create_puppet**
@@ -100,6 +101,54 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
+ - **Accept**: image/png
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **draw_by_image**
+> file draw_by_image(puppet_id, pose_image)
+
+Draw new image based on the input image
+
+### Example
+```python
+from __future__ import print_function
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = swagger_client.PuppetApi()
+puppet_id = 'puppet_id_example' # str | ID of the Puppet
+pose_image = '/path/to/file.txt' # file | The target pose image file, JPEG or PNG.
+
+try:
+    # Draw new image based on the input image
+    api_response = api_instance.draw_by_image(puppet_id, pose_image)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling PuppetApi->draw_by_image: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **puppet_id** | **str**| ID of the Puppet | 
+ **pose_image** | **file**| The target pose image file, JPEG or PNG. | 
+
+### Return type
+
+[**file**](file.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: multipart/form-data
  - **Accept**: image/png
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
