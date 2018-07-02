@@ -1,9 +1,11 @@
+import io
 import sys
 import cv2
+import json
 import numpy as np
 import argparse
 import chainer
-from pose_detector import PoseDetector, draw_person_pose
+from pose_detector import draw_person_pose
 from entity import params
 
 sys.path.append('puppet_api_client')
@@ -48,6 +50,27 @@ def fetch_transformed_img(puppet_id, pose_array):
     return img
 
 
+def pose_detector(puppet_id, img):
+    api_instance = swagger_client.PuppetApi()
+    tmp_path = 'tmp/current_pose.jpg'
+    cv2.imwrite(tmp_path, img)
+    api_response = api_instance.estimate_pose(puppet_id, tmp_path, _preload_content=False)
+    return json.loads(api_response.data)
+
+
+def convert_to_cocopose(pose):
+    pose_array = []
+    tmp = {}
+    for k, i in params['moecs_joint_indices'].items():
+        tmp[i] = [0, 0, 0]
+        tmp[i][0] = pose[k]['x']
+        tmp[i][1] = pose[k]['y']
+        tmp[i][2] = pose[k]['v']
+    for i in range(len(tmp)):
+        pose_array.append(tmp[i])
+    return pose_array
+
+
 def resize_and_pad_image(img, size, padding_color=(255, 255, 255)):
     h, w = img.shape[:2]
     sh, sw = size
@@ -89,9 +112,6 @@ if __name__ == '__main__':
     parser.add_argument('--puppet', '-p', type=str, default=None, help='Puppet Id')
     args = parser.parse_args()
 
-    # load model
-    pose_detector = PoseDetector("posenet", "models/coco_posenet.npz", device=args.gpu)
-
     cap = cv2.VideoCapture(0)
     cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
     cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
@@ -99,16 +119,17 @@ if __name__ == '__main__':
     while True:
         # get video frame
         ret, img = cap.read()
-        img = resize_and_pad_image(img, (512, 512))
-        print(img.shape)
-
         if not ret:
             print("Failed to capture image")
             break
+        img = resize_and_pad_image(img, (512, 512))
 
-        person_pose_array, _ = pose_detector(img)
+        crowd = pose_detector(args.puppet, img)
+        person_pose_array = [convert_to_cocopose(pose['bone']) for pose in crowd['poses']]
+        print('{} people detected'.format(len(person_pose_array)))
 
         if len(person_pose_array) > 0:
+            person_pose_array = np.asarray(person_pose_array)
             res_img = fetch_transformed_img(args.puppet, person_pose_array[0])
             res_img = cv2.addWeighted(res_img, 0.7, draw_person_pose(res_img, person_pose_array), 0.3, 0)
 
