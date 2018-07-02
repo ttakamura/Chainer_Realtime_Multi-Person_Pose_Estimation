@@ -237,40 +237,40 @@ class PuppetApi(object):
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def draw_by_image(self, puppet_id, pose_image, **kwargs):  # noqa: E501
-        """Draw new image based on the input image  # noqa: E501
+    def estimate_pose(self, puppet_id, pose_image, **kwargs):  # noqa: E501
+        """Estimate the pose from input image  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
-        >>> thread = api.draw_by_image(puppet_id, pose_image, async=True)
+        >>> thread = api.estimate_pose(puppet_id, pose_image, async=True)
         >>> result = thread.get()
 
         :param async bool
         :param str puppet_id: ID of the Puppet (required)
         :param file pose_image: The target pose image file, JPEG or PNG. (required)
-        :return: file
+        :return: Poses
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('async'):
-            return self.draw_by_image_with_http_info(puppet_id, pose_image, **kwargs)  # noqa: E501
+            return self.estimate_pose_with_http_info(puppet_id, pose_image, **kwargs)  # noqa: E501
         else:
-            (data) = self.draw_by_image_with_http_info(puppet_id, pose_image, **kwargs)  # noqa: E501
+            (data) = self.estimate_pose_with_http_info(puppet_id, pose_image, **kwargs)  # noqa: E501
             return data
 
-    def draw_by_image_with_http_info(self, puppet_id, pose_image, **kwargs):  # noqa: E501
-        """Draw new image based on the input image  # noqa: E501
+    def estimate_pose_with_http_info(self, puppet_id, pose_image, **kwargs):  # noqa: E501
+        """Estimate the pose from input image  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
-        >>> thread = api.draw_by_image_with_http_info(puppet_id, pose_image, async=True)
+        >>> thread = api.estimate_pose_with_http_info(puppet_id, pose_image, async=True)
         >>> result = thread.get()
 
         :param async bool
         :param str puppet_id: ID of the Puppet (required)
         :param file pose_image: The target pose image file, JPEG or PNG. (required)
-        :return: file
+        :return: Poses
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -286,18 +286,18 @@ class PuppetApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method draw_by_image" % key
+                    " to method estimate_pose" % key
                 )
             params[key] = val
         del params['kwargs']
         # verify the required parameter 'puppet_id' is set
         if ('puppet_id' not in params or
                 params['puppet_id'] is None):
-            raise ValueError("Missing the required parameter `puppet_id` when calling `draw_by_image`")  # noqa: E501
+            raise ValueError("Missing the required parameter `puppet_id` when calling `estimate_pose`")  # noqa: E501
         # verify the required parameter 'pose_image' is set
         if ('pose_image' not in params or
                 params['pose_image'] is None):
-            raise ValueError("Missing the required parameter `pose_image` when calling `draw_by_image`")  # noqa: E501
+            raise ValueError("Missing the required parameter `pose_image` when calling `estimate_pose`")  # noqa: E501
 
         collection_formats = {}
 
@@ -317,7 +317,7 @@ class PuppetApi(object):
         body_params = None
         # HTTP header `Accept`
         header_params['Accept'] = self.api_client.select_header_accept(
-            ['image/png'])  # noqa: E501
+            ['application/json'])  # noqa: E501
 
         # HTTP header `Content-Type`
         header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
@@ -327,14 +327,14 @@ class PuppetApi(object):
         auth_settings = []  # noqa: E501
 
         return self.api_client.call_api(
-            '/puppet/{puppetId}/draw_by_image', 'POST',
+            '/puppet/{puppetId}/estimate_pose', 'POST',
             path_params,
             query_params,
             header_params,
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='file',  # noqa: E501
+            response_type='Poses',  # noqa: E501
             auth_settings=auth_settings,
             async=params.get('async'),
             _return_http_data_only=params.get('_return_http_data_only'),

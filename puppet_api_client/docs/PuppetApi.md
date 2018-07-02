@@ -6,7 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**create_puppet**](PuppetApi.md#create_puppet) | **POST** /puppet | Create new Puppet model
 [**draw**](PuppetApi.md#draw) | **POST** /puppet/{puppetId}/draw | Draw new image based on the Puppet and input pose
-[**draw_by_image**](PuppetApi.md#draw_by_image) | **POST** /puppet/{puppetId}/draw_by_image | Draw new image based on the input image
+[**estimate_pose**](PuppetApi.md#estimate_pose) | **POST** /puppet/{puppetId}/estimate_pose | Estimate the pose from input image
 
 
 # **create_puppet**
@@ -105,10 +105,10 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **draw_by_image**
-> file draw_by_image(puppet_id, pose_image)
+# **estimate_pose**
+> Poses estimate_pose(puppet_id, pose_image)
 
-Draw new image based on the input image
+Estimate the pose from input image
 
 ### Example
 ```python
@@ -124,11 +124,11 @@ puppet_id = 'puppet_id_example' # str | ID of the Puppet
 pose_image = '/path/to/file.txt' # file | The target pose image file, JPEG or PNG.
 
 try:
-    # Draw new image based on the input image
-    api_response = api_instance.draw_by_image(puppet_id, pose_image)
+    # Estimate the pose from input image
+    api_response = api_instance.estimate_pose(puppet_id, pose_image)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling PuppetApi->draw_by_image: %s\n" % e)
+    print("Exception when calling PuppetApi->estimate_pose: %s\n" % e)
 ```
 
 ### Parameters
@@ -140,7 +140,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**file**](file.md)
+[**Poses**](Poses.md)
 
 ### Authorization
 
@@ -149,7 +149,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: multipart/form-data
- - **Accept**: image/png
+ - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

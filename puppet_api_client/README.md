@@ -71,7 +71,7 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *PuppetApi* | [**create_puppet**](docs/PuppetApi.md#create_puppet) | **POST** /puppet | Create new Puppet model
 *PuppetApi* | [**draw**](docs/PuppetApi.md#draw) | **POST** /puppet/{puppetId}/draw | Draw new image based on the Puppet and input pose
-*PuppetApi* | [**draw_by_image**](docs/PuppetApi.md#draw_by_image) | **POST** /puppet/{puppetId}/draw_by_image | Draw new image based on the input image
+*PuppetApi* | [**estimate_pose**](docs/PuppetApi.md#estimate_pose) | **POST** /puppet/{puppetId}/estimate_pose | Estimate the pose from input image
 
 
 ## Documentation For Models
@@ -79,6 +79,7 @@ Class | Method | HTTP request | Description
  - [Bone](docs/Bone.md)
  - [Joint](docs/Joint.md)
  - [Pose](docs/Pose.md)
+ - [Poses](docs/Poses.md)
  - [Puppet](docs/Puppet.md)
 
 

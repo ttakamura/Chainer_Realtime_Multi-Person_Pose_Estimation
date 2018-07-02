@@ -43,10 +43,10 @@ class TestPuppetApi(unittest.TestCase):
         """
         pass
 
-    def test_draw_by_image(self):
-        """Test case for draw_by_image
+    def test_estimate_pose(self):
+        """Test case for estimate_pose
 
-        Draw new image based on the input image  # noqa: E501
+        Estimate the pose from input image  # noqa: E501
         """
         pass
 

@@ -18,4 +18,5 @@ from __future__ import absolute_import
 from swagger_client.models.bone import Bone
 from swagger_client.models.joint import Joint
 from swagger_client.models.pose import Pose
+from swagger_client.models.poses import Poses
 from swagger_client.models.puppet import Puppet

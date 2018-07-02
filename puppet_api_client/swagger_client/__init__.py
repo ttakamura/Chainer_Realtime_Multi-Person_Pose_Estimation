@@ -25,4 +25,5 @@ from swagger_client.configuration import Configuration
 from swagger_client.models.bone import Bone
 from swagger_client.models.joint import Joint
 from swagger_client.models.pose import Pose
+from swagger_client.models.poses import Poses
 from swagger_client.models.puppet import Puppet
