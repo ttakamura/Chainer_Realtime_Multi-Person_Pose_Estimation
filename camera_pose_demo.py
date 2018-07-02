@@ -86,6 +86,7 @@ chainer.using_config('enable_backprop', False)
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Pose detector')
     parser.add_argument('--gpu', '-g', type=int, default=-1, help='GPU ID (negative value indicates CPU)')
+    parser.add_argument('--puppet', '-p', type=str, default=None, help='Puppet Id')
     args = parser.parse_args()
 
     # load model
@@ -108,8 +109,7 @@ if __name__ == '__main__':
         person_pose_array, _ = pose_detector(img)
 
         if len(person_pose_array) > 0:
-            puppet_id = "b2c08639-83f4-478a-9ad8-f240053cfae6"
-            res_img = fetch_transformed_img(puppet_id, person_pose_array[0])
+            res_img = fetch_transformed_img(args.puppet, person_pose_array[0])
             res_img = cv2.addWeighted(res_img, 0.7, draw_person_pose(res_img, person_pose_array), 0.3, 0)
 
             debug_img = cv2.addWeighted(img, 0.6, draw_person_pose(img, person_pose_array), 0.4, 0)
