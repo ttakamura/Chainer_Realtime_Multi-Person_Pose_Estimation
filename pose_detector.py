@@ -1,5 +1,7 @@
 import cv2
 import math
+import json
+import sys
 import time
 import argparse
 import numpy as np
@@ -552,6 +554,40 @@ def draw_person_pose(orig_img, poses):
                 cv2.circle(canvas, (x, y), 3, color, -1)
     return canvas
 
+
+class StreamPoseDetector:
+    def __init__(self, detector, args):
+        self.detector = detector
+        self.args = args
+
+    def detect(self, io):
+        print("Ready to detect StreamPoseDetector")
+        sys.stdout.flush()
+        for line in io:
+            img_path = line.rstrip()
+            img = cv2.imread(img_path, cv2.IMREAD_COLOR)
+            if img is not None:
+                person_pose_array, _ = pose_detector(img)
+                poses = self.convert_to_moepose(person_pose_array)
+                print(json.dumps(poses))
+                sys.stdout.flush()
+            else:
+                print('Error - image not found %s' % img_path)
+
+    def convert_to_moepose(self, person_pose_array):
+        poses = []
+        for pose in person_pose_array:
+            moepose = {}
+            for k, i in params['moecs_joint_indices'].items():
+                moepose[k] = {'x': 0, 'y': 0, 'v': 0}
+                if i < 18:
+                    moepose[k]['x'] = pose[i, 0]
+                    moepose[k]['y'] = pose[i, 1]
+                    moepose[k]['v'] = pose[i, 2]
+            poses.append({'pos': {'pose': {'bone': moepose}}})
+        return poses
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Pose detector')
     parser.add_argument('arch', choices=params['archs'].keys(), default='posenet', help='Model architecture')
@@ -567,13 +603,18 @@ if __name__ == '__main__':
     # load model
     pose_detector = PoseDetector(args.arch, args.weights, device=args.gpu, precise=args.precise)
 
-    # read image
-    img = cv2.imread(args.img)
+    if args.img is not None:
+        # read image
+        img = cv2.imread(args.img)
 
-    # inference
-    poses, _ = pose_detector(img)
+        # inference
+        poses, _ = pose_detector(img)
 
-    # draw and save image
-    img = draw_person_pose(img, poses)
-    print('Saving result into result.png...')
-    cv2.imwrite('result.png', img)
+        # draw and save image
+        img = draw_person_pose(img, poses)
+        print('Saving result into result.png...')
+        cv2.imwrite('result.png', img)
+
+    else:
+        detector = StreamPoseDetector(pose_detector, args)
+        detector.detect(sys.stdin)
