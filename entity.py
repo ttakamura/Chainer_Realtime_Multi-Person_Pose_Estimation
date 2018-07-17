@@ -62,7 +62,7 @@ params = {
     'ksize': 17,
     'n_integ_points': 10,
     'n_integ_points_thresh': 8,
-    'heatmap_peak_thresh': 0.05,
+    'heatmap_peak_thresh': 0.09,
     'inner_product_thresh': 0.05,
     'limb_length_ratio': 1.0,
     'length_penalty_value': 1,

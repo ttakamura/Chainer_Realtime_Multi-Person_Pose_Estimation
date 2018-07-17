@@ -567,7 +567,7 @@ class StreamPoseDetector:
             img_path = line.rstrip()
             img = cv2.imread(img_path, cv2.IMREAD_COLOR)
             if img is not None:
-                person_pose_array, _ = pose_detector(img)
+                person_pose_array, _ = self.detector(img)
                 poses = self.convert_to_moepose(person_pose_array)
                 print(json.dumps(poses))
                 sys.stdout.flush()
@@ -601,7 +601,8 @@ if __name__ == '__main__':
     chainer.config.train = False
 
     # load model
-    pose_detector = PoseDetector(args.arch, args.weights, device=args.gpu, precise=args.precise)
+    # pose_detector = PoseDetector(args.arch, args.weights, device=args.gpu, precise=args.precise)
+    pose_detector = PoseDetector(args.arch, args.weights, device=args.gpu, precise=False)
 
     if args.img is not None:
         # read image
