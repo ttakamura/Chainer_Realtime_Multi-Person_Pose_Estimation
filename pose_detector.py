@@ -567,8 +567,12 @@ class StreamPoseDetector:
             img_path = line.rstrip()
             img = cv2.imread(img_path, cv2.IMREAD_COLOR)
             if img is not None:
-                person_pose_array, _ = self.detector(img)
-                poses = self.convert_to_moepose(person_pose_array)
+                person_pose_array, scores = self.detector(img)
+                valid_poses = []
+                for i in range(len(scores)):
+                    if scores[i] > 5.0:
+                        valid_poses.append(person_pose_array[i])
+                poses = self.convert_to_moepose(valid_poses)
                 print(json.dumps(poses))
                 sys.stdout.flush()
             else:
