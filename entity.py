@@ -54,7 +54,7 @@ params = {
     'center_perterb_max': 40,
 
     # inference params
-    'inference_img_size': 180,
+    'inference_img_size': 170,
     'inference_scales': [0.5, 1, 1.5, 2],
     # 'inference_scales': [1.0],
     'heatmap_size': 320,
@@ -62,8 +62,8 @@ params = {
     'ksize': 17,
     'n_integ_points': 10,
     'n_integ_points_thresh': 8,
-    'heatmap_peak_thresh': 0.08,
-    'inner_product_thresh': 0.05,
+    'heatmap_peak_thresh': 0.1,
+    'inner_product_thresh': 0.08,
     'limb_length_ratio': 1.0,
     'length_penalty_value': 1,
     'n_subset_limbs_thresh': 3,

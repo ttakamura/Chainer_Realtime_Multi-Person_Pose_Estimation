@@ -570,7 +570,7 @@ class StreamPoseDetector:
                 person_pose_array, scores = self.detector(img)
                 valid_poses = []
                 for i in range(len(scores)):
-                    if scores[i] > 5.0:
+                    if scores[i] > 9.0:
                         valid_poses.append(person_pose_array[i])
                 poses = self.convert_to_moepose(valid_poses)
                 print(json.dumps(poses))
