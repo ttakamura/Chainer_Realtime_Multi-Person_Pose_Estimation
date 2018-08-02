@@ -54,7 +54,7 @@ params = {
     'center_perterb_max': 40,
 
     # inference params
-    'inference_img_size': 180,
+    'inference_img_size': 200,
     'inference_scales': [0.5, 1, 1.5, 2],
     # 'inference_scales': [1.0],
     'heatmap_size': 320,
